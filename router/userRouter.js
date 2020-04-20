@@ -7,7 +7,7 @@ const validator = require('../validater/validater')
 router.post("/signUp", validator.userSignUpValidation, userController.signupUser)
 router.post("/signin", userController.signin)
 router.get("/signOut", userController.signOut)
-router.get("/allUsers", userController.getAllUsers);
+router.post("/allUsers", userController.getAllUsers);
 router.get("/getUserId/:userId", userController.getUser);
 router.put("/updateUser/:userId", validator.userSignUpValidation, userController.updateUser);
 router.delete("/deletUser/:userId", validator.userSignUpValidation, userController.deleteUser);

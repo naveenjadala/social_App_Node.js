@@ -8,8 +8,10 @@ var cookieParser = require('cookie-parser')
 const { check, validationResult } = require('express-validator');
 dotenv.config()
 
-mongoose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true,  useFindAndModify: false  })
-.then(() =>  console.log("DB COnnected"));
+mongoose.connect(process.env.MONGO_URI,
+  { useUnifiedTopology: true, useNewUrlParser: true,  useFindAndModify: false  })
+  .then(() =>  console.log("DB Connected"))
+  .catch(v => console.log(v));
 
 mongoose.connection.on("error", err => {
     console.log(`DB connection error: ${err}`)
@@ -23,8 +25,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 // app.use(validationResult());
 
-
-
 app.use("/", postRouter)
 app.use("/", userRouter)
 app.use(function (err, req, res, next) {
@@ -32,7 +32,7 @@ app.use(function (err, req, res, next) {
       res.status(401).json({ message:'Unauthorized...' });
     }
   });
-
+  require('./prod')(app);
 
 const port = process.env.PORT || 8080
 app.listen(port, console.log(`${port}`));
