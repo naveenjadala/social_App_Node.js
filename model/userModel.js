@@ -39,16 +39,15 @@ userModel.virtual('password')
 })
 
 userModel.methods = {
-    
+
     authantication: function(plainPassword) {
         return this.encryptPassword(plainPassword) === this.hashed_password
     },
 
-
     encryptPassword: function(password) {
         if(!password) return ""
         try {
-            return crypto.createHmac('sha1', this.salt)
+            return crypto.createHash('sha1', this.salt)
             .update(password)
             .digest('hex');
         }
